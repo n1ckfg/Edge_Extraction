@@ -7,7 +7,11 @@ import os
 import sys
 import pdb
 
-pcd1 = PyntCloud.from_file("/ArtificialPointClouds/bunny.pcd")
+argv = sys.argv
+argv = argv[argv.index("--") + 1:] # get all args after "--"
+inputPath = argv[0]
+
+pcd1 = PyntCloud.from_file(inputPath)
 #pcd1 = PyntCloud.from_file("/TetrahedronMultiple.pcd")
 #pcd1 = PyntCloud.from_file("/ArtificialPointClouds/CubeFractal2.pcd")
 output_dir = "./detected_edge/"
@@ -16,8 +20,8 @@ if not os.path.exists(output_dir):
     os.makedirs(output_dir)
     
 # define hyperparameters
-k_n = 50
-thresh = 0.03
+k_n = 33 # 50
+thresh = 0.08 # 0.03
 
 pcd_np = np.zeros((len(pcd1.points),6))
 
@@ -84,5 +88,5 @@ edge_points = PyntCloud(pd.DataFrame(data=edge_np,columns=clmns))
 # pcd_points.plot()
 # edge_points.plot()
 
-PyntCloud.to_file(pcd_points,output_dir+'pointcloud_edges.ply')   # Save the whole point cloud by painting the edge points
-PyntCloud.to_file(edge_points,output_dir+'edges.ply')             # Save just the edge points
+PyntCloud.to_file(pcd_points, output_dir + 'pointcloud_edges.ply')   # Save the whole point cloud by painting the edge points
+PyntCloud.to_file(edge_points, output_dir + 'edges.ply')             # Save just the edge points
