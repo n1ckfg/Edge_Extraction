@@ -14,5 +14,5 @@ INPUT_DIR=$1
 
 for INPUT in "$INPUT_DIR"/*.ply
 do
-  python Difference_Eigenvalues.py -- $INPUT 
+  python3 Difference_Eigenvalues.py -- $INPUT 
 done
